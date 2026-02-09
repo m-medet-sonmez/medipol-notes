@@ -1,0 +1,24 @@
+.rhap_container {
+    background-color: transparent !important;
+}
+
+.rhap_time {
+    color: #a3a3a3 !important;
+    font-size: 0.8rem !important;
+}
+
+.rhap_progress-filled {
+    background-color: oklch(0.627 0.265 303.9) !important; /* Primary/Purple */
+}
+
+.rhap_progress-indicator {
+    background: oklch(0.627 0.265 303.9) !important;
+}
+
+.rhap_main-controls-button {
+    color: white !important;
+}
+
+.rhap_play-pause-button {
+    font-size: 40px !important;
+}
