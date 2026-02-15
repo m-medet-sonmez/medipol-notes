@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import {
   HeroSection,
   ProblemSection,
@@ -7,30 +8,22 @@ import {
   FAQSection,
   CTASection
 } from '@/components/landing/LandingSections';
+import { Navbar } from '@/components/landing/Navbar';
 import { Logo } from '@/components/ui/logo';
-import Link from 'next/link';
 
-function Navbar() {
-  return (
-    <header className="absolute inset-x-0 top-0 z-50">
-      <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
-        <div className="flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5 transition-opacity hover:opacity-80">
-            <Logo />
-          </Link>
-        </div>
-        <div className="flex lg:flex-1 justify-end space-x-4">
-          <Link href="/giris" className="text-sm font-semibold leading-6 text-white hover:text-purple-400 transition-colors">
-            Giriş Yap
-          </Link>
-          <Link href="/kayit" className="text-sm font-semibold leading-6 text-white bg-[#7C3AED]/20 px-4 py-2 rounded-full hover:bg-[#7C3AED]/30 transition-colors ring-1 ring-[#7C3AED]/50">
-            Kayıt Ol <span aria-hidden="true">&rarr;</span>
-          </Link>
-        </div>
-      </nav>
-    </header>
-  )
-}
+export const metadata: Metadata = {
+  title: 'KafaRahat | Üniversite Hayatı Artık Daha Kolay',
+  description: 'YBS 2. Sınıf öğrencileri için haftalık notlar, sınav takibi ve ESP Trust yönetimi. Akademik başarını arttır, kafan rahat olsun.',
+  keywords: ['YBS', 'Yönetim Bilişim Sistemleri', 'Ders Notları', 'Sınav Takibi', 'ESP Trust', 'KafaRahat', 'Üniversite'],
+  openGraph: {
+    title: 'KafaRahat | Üniversite Ders Notları ve Takip Sistemi',
+    description: 'YBS 2. Sınıf öğrencileri için özel olarak hazırlanan haftalık notlar ve sınav takibi platformu.',
+    url: 'https://kafarahat.com', // Placeholder URL
+    siteName: 'KafaRahat',
+    locale: 'tr_TR',
+    type: 'website',
+  },
+};
 
 export default function Home() {
   return (

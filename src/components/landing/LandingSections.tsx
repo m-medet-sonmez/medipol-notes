@@ -26,12 +26,13 @@ import { cn } from '@/lib/utils';
 export function HeroSection() {
     return (
         <div className="relative isolate overflow-hidden bg-background">
+            {/* Background Gradients */}
             <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
                 <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#7C3AED] to-[#5B21B6] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" />
             </div>
 
             <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40">
-                <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8">
+                <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8 relative z-10">
                     <div className="mt-24 sm:mt-32 lg:mt-16">
                         <a href="#" className="inline-flex space-x-6">
                             <span className="rounded-full bg-purple-600/10 px-3 py-1 text-sm font-semibold leading-6 text-purple-400 ring-1 ring-inset ring-purple-600/20">
@@ -39,7 +40,7 @@ export function HeroSection() {
                             </span>
                         </a>
                     </div>
-                    <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-6xl">
+                    <h1 className="mt-10 text-4xl font-bold font-heading tracking-tight text-white sm:text-6xl">
                         Derslerden Kafan <span className="text-[#7C3AED]">Rahat Olsun</span>
                     </h1>
                     <p className="mt-6 text-lg leading-8 text-gray-300">
@@ -61,7 +62,7 @@ export function HeroSection() {
                             <CheckCircle2 className="h-4 w-4 text-purple-500" /> Haftalık Notlar
                         </div>
                         <div className="flex items-center gap-2">
-                            <CheckCircle2 className="h-4 w-4 text-purple-500" /> Sesli Özetler
+                            <CheckCircle2 className="h-4 w-4 text-purple-500" /> Yoklama Takibi
                         </div>
                         <div className="flex items-center gap-2">
                             <CheckCircle2 className="h-4 w-4 text-purple-500" /> ESP Takibi
@@ -72,34 +73,21 @@ export function HeroSection() {
                     </div>
                 </div>
 
-                {/* Visual Element - Abstract Laptop/Dashboard Representation */}
-                <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mt-0 lg:mr-0 lg:max-w-none lg:flex-none xl:ml-32">
-                    <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
-                        <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-                            <div className="rounded-md bg-gray-800/60 p-4 border border-white/10 shadow-2xl backdrop-blur-md">
-                                {/* Mock UI Elements */}
-                                <div className="flex items-center gap-2 mb-4 border-b border-white/5 pb-2">
-                                    <div className="h-3 w-3 rounded-full bg-red-500"></div>
-                                    <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
-                                    <div className="h-3 w-3 rounded-full bg-green-500"></div>
-                                </div>
-                                <div className="space-y-3">
-                                    <div className="h-8 w-1/3 bg-white/10 rounded animate-pulse"></div>
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="h-32 bg-purple-500/20 rounded border border-purple-500/30 p-4 flex flex-col justify-between">
-                                            <div className="h-8 w-8 rounded bg-purple-500/40"></div>
-                                            <div className="h-4 w-3/4 bg-purple-500/40 rounded"></div>
-                                        </div>
-                                        <div className="h-32 bg-blue-500/20 rounded border border-blue-500/30 p-4 flex flex-col justify-between">
-                                            <div className="h-8 w-8 rounded bg-blue-500/40"></div>
-                                            <div className="h-4 w-3/4 bg-blue-500/40 rounded"></div>
-                                        </div>
-                                    </div>
-                                    <div className="h-24 bg-white/5 rounded border border-white/10"></div>
-                                    <div className="h-24 bg-white/5 rounded border border-white/10"></div>
-                                </div>
-                            </div>
-                        </div>
+                {/* Visual Element - Hero Illustration (Immersive) */}
+                <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mt-0 lg:mr-0 lg:max-w-none lg:flex-none xl:ml-32 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+                    <div className="relative w-full h-full">
+                        {/* No solid overlays - purely relying on mask for perfect background matching */}
+                        <img
+                            src="/hero-illustration-new.png"
+                            alt="Stressed student studying"
+                            className="w-full h-full object-cover lg:object-left-top opacity-90 hover:opacity-100 transition-opacity duration-700 select-none"
+                            style={{
+                                maskImage: 'linear-gradient(to right, transparent 0%, black 40%), linear-gradient(to top, transparent 0%, black 20%)',
+                                WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 40%), linear-gradient(to top, transparent 0%, black 20%)',
+                                maskComposite: 'intersect',
+                                WebkitMaskComposite: 'source-in'
+                            }}
+                        />
                     </div>
                 </div>
             </div>
@@ -114,35 +102,40 @@ export function HeroSection() {
 // --- PROBLEM SECTION ---
 export function ProblemSection() {
     const problems = [
-        { icon: Clock, title: "Zaman Sıkıntısı", desc: "Derse katılamadığınız günler oluyor veya staj nedeniyle yetişemiyorsunuz." },
-        { icon: Target, title: "Hedef Sorunu", desc: "İlgili dersin kariyer hedeflerinize katkısını görmekte zorlanıyorsunuz." },
-        { icon: BookOpen, title: "Not Eksikliği", desc: "Vize-final haftalarında kaliteli ve güvenilir not bulmak bir kabusa dönüşüyor." },
-        { icon: Shield, title: "Takip Zorluğu", desc: "İngilizce ödevlerini veya sınav tarihlerini unutma riskiyle yaşıyorsunuz." },
+        { icon: Clock, title: "Zaman Sıkıntısı", desc: "Part-time iş, staj veya okula olan uzaklığından dolayı bazı derslere yetişemiyor musun?" },
+        { icon: Target, title: "Hedef Sorunu", desc: "İlgili dersten pek verim alamayıp, zorunlu olduğu için mi derse gelmek zorunda kalıyorsun?" },
+        { icon: BookOpen, title: "Not Eksikliği", desc: "Vize ve final haftaları gelince grupta not mu bekliyorsun?" },
+        { icon: Shield, title: "Takip Zorluğu", desc: "Sınav takvimlerini unutup, bir anda haftaya sınavların olduğunu mu öğreniyorsun?" },
+        { icon: Calendar, title: "ESP Trust", desc: "ESP ünitelerinin son tarihlerini unutup yapmıyor musun?" },
+        { icon: MessageCircle, title: "Slaytların Dışında", desc: "Hoca slaytların dışında ne demişti diye hatırlamıyor musun?" },
     ];
 
     return (
-        <div className="bg-[#0F0F0F] py-24 sm:py-32">
+        <div className="bg-[#0B0B0F] py-24 sm:py-32 relative overflow-hidden">
+            {/* Background Gradient Spot */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-900/20 blur-[100px] rounded-full -z-10" />
+
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl lg:text-center">
                     <h2 className="text-base font-semibold leading-7 text-purple-400">Neden KafaRahat?</h2>
-                    <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                    <p className="mt-2 text-3xl font-bold font-heading tracking-tight text-white sm:text-4xl">
                         Bu Durumlar Tanıdık Geliyor mu?
                     </p>
                     <p className="mt-6 text-lg leading-8 text-gray-400">
                         Üniversite hayatının koşturmacasında bazı şeyler gözden kaçabilir. KafaRahat, tam da bu sorunlara çözüm olarak tasarlandı.
                     </p>
                 </div>
-                <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-                    <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+                <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+                    <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-3 lg:gap-y-16">
                         {problems.map((problem) => (
-                            <div key={problem.title} className="relative pl-16">
+                            <div key={problem.title} className="relative pl-16 p-6 rounded-[24px] bg-white/5 border border-white/10 hover:border-purple-500/30 transition-all duration-300 hover:-translate-y-1 backdrop-blur-sm group">
                                 <dt className="text-base font-semibold leading-7 text-white">
-                                    <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-purple-600">
-                                        <problem.icon className="h-6 w-6 text-white" aria-hidden="true" />
+                                    <div className="absolute left-6 top-6 flex h-10 w-10 items-center justify-center rounded-lg bg-purple-600/20 group-hover:bg-purple-600 transition-colors duration-300">
+                                        <problem.icon className="h-6 w-6 text-purple-400 group-hover:text-white transition-colors duration-300" aria-hidden="true" />
                                     </div>
-                                    {problem.title}
+                                    <span className="ml-4">{problem.title}</span>
                                 </dt>
-                                <dd className="mt-2 text-base leading-7 text-gray-400">{problem.desc}</dd>
+                                <dd className="mt-2 ml-4 text-base leading-7 text-gray-400">{problem.desc}</dd>
                             </div>
                         ))}
                     </dl>
@@ -157,59 +150,75 @@ export function FeaturesSection() {
     const features = [
         {
             title: "Haftalık Ders Özetleri",
-            desc: "Derste fiziki olarak bulunan arkadaşlarınız tarafından tutulan, sınav odaklı notlar. AI yok, gerçek sınıf deneyimi.",
-            icon: "📚" // Using emoji as requested/simple alternative
+            desc: "Derste fiziki olarak bulunan arkadaşlarınız tarafından tutulan notlardır. Bilinçli olarak hocamızın sözlü olarak dediği 'burası çıkar' dediği yerler özellikle işaretlenip, haftalık ders notları şeklinde ilgili ders bölümüne yüklenir. AI'dan anahtar kelimeler çıkarılıp veya slaytların özetlerini AI'a çıkartıp not diye yükleme yapılmaz; arkadaşımızın fiziki olarak derste çıkardığı notlar olacaktır.",
+            icon: "/feature-weekly-notes.png"
         },
         {
             title: "Podcast Özetleri",
-            desc: "Yolda, sporda, dinlenirken... Ders özetlerinin sesli versiyonları ile günün özetine istediğiniz yerden ulaşın.",
-            icon: "🎧"
+            desc: "Derste fiziki olarak bulunan arkadaşımızın notları sesli hale getirilip, yolda, sporda, yürüyüşte kısa bir vakitte bu hafta ne işlendiğinden haberdar olabileceksiniz.",
+            icon: "/feature-podcast.png"
         },
         {
             title: "ESP Trust Takibi",
-            desc: "İngilizce ödevinizi unutmayın! Ünite notları paylaşılır, takvim takibi bizden, yükleme kontrolü sizden.",
-            icon: "📧"
+            desc: "Platformun içinde bulunan ESP Trust bölmesinden ilgili yerden mailiniz ve şifrenizi admine yönlendirdikten sonra ünitelerin zamanları dolmadan sizin yerinize yapılacaktır. Yapılan üniteler ve notları da ilgili sekmeden görebileceksiniz.",
+            icon: "/feature-esp-trust.png"
         },
         {
             title: "Sınav Takvimi & Hatırlatıcılar",
-            desc: "Vize ve final tarihlerini kaçırmayın. Geri sayım sayacı ve otomatik email bildirimleri ile her zaman hazırsınız.",
-            icon: "⏰"
+            desc: "Vize ve final tarihlerini kaçırmayın diye platformun içinde bulunan geri sayım sayacının içinde görebilecek, yaklaştığı zaman mail yoluyla bilgilendirileceksiniz.",
+            icon: "/feature-exam-calendar.png"
         },
         {
             title: "Yoklama Takibi",
-            desc: "Hangi derslerde imza attınız, hangilerinde eksik? Yoklama takviminizi kolayca yönetin, devamsızlık derdine son.",
-            icon: "📋"
+            desc: "Bu konu üzerine sizinle özel irtibata geçilecek.",
+            icon: "/feature-attendance.png"
         },
         {
             title: "Admine Sor",
-            desc: "Kafanıza takılan bir şey mi var? Teknik destek veya özellik talepleri için anında yanıt alın.",
-            icon: "💬"
+            desc: "Kafanıza takılan bir şey mi var? Teknik destek veya özellik talepleri için 'Admine Sor' butonuyla sorularınızı sorup cevapları size ulaştırılacaktır.",
+            icon: "/feature-ask-admin.png"
         }
     ];
 
     return (
-        <div className="bg-black py-24 sm:py-32" id="features">
+        <div className="bg-black py-24 sm:py-32 overflow-hidden" id="features">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="mx-auto max-w-2xl text-center">
+                <div className="mx-auto max-w-2xl text-center mb-24">
                     <h2 className="text-base font-semibold leading-7 text-purple-400">Özellikler</h2>
-                    <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                    <p className="mt-2 text-3xl font-bold font-heading tracking-tight text-white sm:text-4xl">
                         Neler Sunuyoruz?
                     </p>
                 </div>
-                <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-                    <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-                        {features.map((feature) => (
-                            <div key={feature.title} className="flex flex-col bg-white/5 p-8 rounded-2xl hover:bg-white/10 transition-colors border border-white/10">
-                                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-white mb-4">
-                                    <span className="text-4xl">{feature.icon}</span>
-                                    {feature.title}
-                                </dt>
-                                <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-400">
-                                    <p className="flex-auto">{feature.desc}</p>
-                                </dd>
+
+                <div className="flex flex-col gap-y-32">
+                    {features.map((feature, index) => (
+                        <div
+                            key={feature.title}
+                            className={`flex flex-col lg:flex-row gap-12 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
+                        >
+                            {/* Image Side */}
+                            <div className="w-full lg:w-1/2 flex justify-center">
+                                <div className="relative w-full max-w-md aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-purple-900/20 to-transparent p-1 ring-1 ring-white/10 shadow-[0_0_50px_-12px_rgba(124,58,237,0.25)] hover:shadow-[0_0_50px_-12px_rgba(124,58,237,0.5)] transition-shadow duration-500">
+                                    <div className="absolute inset-0 bg-black/40 backdrop-blur-sm -z-10" />
+                                    <img
+                                        src={feature.icon}
+                                        alt={feature.title}
+                                        className="w-full h-full object-contain p-8 hover:scale-105 transition-transform duration-500"
+                                    />
+                                </div>
                             </div>
-                        ))}
-                    </dl>
+
+                            {/* Text Side */}
+                            <div className="w-full lg:w-1/2 flex flex-col justify-center text-center lg:text-left">
+                                <h3 className="text-2xl sm:text-3xl font-bold font-heading tracking-tight text-white mb-6">
+                                    {feature.title}
+                                </h3>
+                                <p className="text-lg leading-8 text-gray-400">
+                                    {feature.desc}
+                                </p>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
@@ -219,10 +228,10 @@ export function FeaturesSection() {
 // --- HOW IT WORKS SECTION ---
 export function HowItWorksSection() {
     return (
-        <div className="bg-[#0F0F0F] py-24 sm:py-32" id="how-it-works">
+        <div className="bg-[#0B0B0F] py-24 sm:py-32" id="how-it-works">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl text-center mb-16">
-                    <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">3 Adımda Başla</h2>
+                    <h2 className="text-3xl font-bold font-heading tracking-tight text-white sm:text-4xl">3 Adımda Başla</h2>
                     <p className="mt-6 text-lg leading-8 text-gray-400">
                         Karmaşık süreçler yok. Sadece 3 adımda dönemi kurtar.
                     </p>
@@ -230,35 +239,35 @@ export function HowItWorksSection() {
 
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                     {/* Step 1 */}
-                    <div className="relative flex flex-col items-center p-8 bg-black/40 rounded-3xl border border-white/5 text-center">
+                    <div className="relative flex flex-col items-center p-8 bg-white/5 rounded-[24px] border border-white/10 text-center hover:bg-white/10 transition-colors duration-300 backdrop-blur-sm">
                         <div className="flex items-center justify-center w-16 h-16 rounded-full bg-purple-900/30 text-purple-400 text-2xl font-bold mb-6 border border-purple-500/20">
                             1
                         </div>
                         <h3 className="text-xl font-bold text-white mb-4">Kayıt Ol</h3>
                         <p className="text-gray-400">
-                            İsminiz ve mail adresinizle hızlıca kayıt olun. Öğrenci numarası veya karmaşık bilgiler gerekmez.
+                            İsminiz ve mail adresinizle hızlıca kayıt olun.
                         </p>
                     </div>
 
                     {/* Step 2 */}
-                    <div className="relative flex flex-col items-center p-8 bg-black/40 rounded-3xl border border-white/5 text-center">
+                    <div className="relative flex flex-col items-center p-8 bg-white/5 rounded-[24px] border border-white/10 text-center hover:bg-white/10 transition-colors duration-300 backdrop-blur-sm">
                         <div className="flex items-center justify-center w-16 h-16 rounded-full bg-purple-900/30 text-purple-400 text-2xl font-bold mb-6 border border-purple-500/20">
                             2
                         </div>
                         <h3 className="text-xl font-bold text-white mb-4">Paketini Şeç</h3>
                         <p className="text-gray-400">
-                            2026 Bahar Dönemi paketini seçin ve Shopier güvencesiyle tek seferlik ödemenizi tamamlayın.
+                            Tek dönemlik olan 2026 bahar dönemini paketi seçin
                         </p>
                     </div>
 
                     {/* Step 3 */}
-                    <div className="relative flex flex-col items-center p-8 bg-black/40 rounded-3xl border border-purple-500/20 text-center shadow-[0_0_30px_-15px_rgba(124,58,237,0.3)]">
-                        <div className="flex items-center justify-center w-16 h-16 rounded-full bg-[#7C3AED] text-white text-2xl font-bold mb-6">
+                    <div className="relative flex flex-col items-center p-8 bg-white/5 rounded-[24px] border border-purple-500/30 text-center shadow-[0_0_30px_-15px_rgba(124,58,237,0.3)] hover:shadow-[0_0_40px_-10px_rgba(124,58,237,0.5)] transition-all duration-300 backdrop-blur-sm">
+                        <div className="flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-[#7B2CFF] to-[#9333EA] text-white text-2xl font-bold mb-6 shadow-lg shadow-purple-900/50">
                             3
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-4">Kafan Rahat Olsun</h3>
+                        <h3 className="text-xl font-bold text-white mb-4">Ödeme</h3>
                         <p className="text-gray-400">
-                            Haftalık notlar, podcastler, sınav hatırlatmaları ve ESP Trust takibi otomatik olarak panelinize gelsin.
+                            Gerekli ibana ödemeyi yaptıktan sonra ödeme kontrol edilecek sonra kayıt olunan maille giriş yapınca arayüze yönlendirileceksiniz
                         </p>
                     </div>
                 </div>
@@ -270,51 +279,75 @@ export function HowItWorksSection() {
 // --- PRICING SECTION ---
 export function PricingSection() {
     return (
-        <div className="bg-black py-24 sm:py-32" id="pricing">
+        <div className="bg-[#0B0B0F] py-24 sm:py-32 relative overflow-hidden" id="pricing">
+            {/* Ambient Glow */}
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-900/10 blur-[120px] rounded-full -z-10" />
+
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="mx-auto max-w-2xl sm:text-center">
-                    <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">Basit, Net, Şeffaf</h2>
-                    <p className="mt-6 text-lg leading-8 text-gray-400">
-                        Gizli ücret yok. Bütün dönem tek bir paket.
-                    </p>
-                </div>
-                <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-white/10 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
-                    <div className="p-8 sm:p-10 lg:flex-auto">
-                        <h3 className="text-2xl font-bold tracking-tight text-white">2026 Bahar Dönemi Paketi</h3>
-                        <p className="mt-6 text-base leading-7 text-gray-400">
-                            Bu paket ile tüm dönem boyunca ihtiyacınız olan her şeye erişim sağlarsınız. Şubat'tan Mayıs sonuna kadar tüm içerikler emrinizde.
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    {/* Left Column: Text & Features */}
+                    <div>
+                        <h2 className="text-5xl sm:text-7xl font-bold font-heading tracking-tight text-white leading-[1.1]">
+                            <span className="block">Basit.</span>
+                            <span className="block">Net.</span>
+                            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">Şeffaf.</span>
+                        </h2>
+                        <p className="mt-8 text-lg leading-8 text-gray-400 max-w-md opacity-80">
+                            Gizli ücret yok. Bütün dönem tek bir paket. İhtiyacınız olan her şey tek bir ödemeyle sizin.
                         </p>
-                        <div className="mt-10 flex items-center gap-x-4">
-                            <h4 className="flex-none text-sm font-semibold leading-6 text-purple-400">Neler Dahil?</h4>
-                            <div className="h-px flex-auto bg-gray-100/10" />
+
+                        <div className="mt-12">
+                            <h4 className="flex-none text-sm font-semibold leading-6 text-purple-400 mb-6">Neler Dahil?</h4>
+                            <ul role="list" className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm leading-6 text-gray-300">
+                                {['Haftalık ders notları', 'Ders notlarının sesli dinletisi', 'ESP Trust takibi', 'Yoklama yönetimi', 'Sınav hatırlatıcıları', 'Admin desteği'].map((feature) => (
+                                    <li key={feature} className="flex gap-x-3 items-center">
+                                        <div className="bg-purple-500/10 rounded-full p-1">
+                                            <CheckCircle2 className="h-4 w-4 text-purple-400" aria-hidden="true" />
+                                        </div>
+                                        {feature}
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
-                        <ul role="list" className="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-300 sm:grid-cols-2 sm:gap-6">
-                            {['Tüm ders notları', 'Sınırsız podcast', 'ESP Trust takibi', 'Yoklama yönetimi', 'Sınav hatırlatıcıları', 'Admin desteği'].map((feature) => (
-                                <li key={feature} className="flex gap-x-3">
-                                    <CheckCircle2 className="h-6 w-5 flex-none text-purple-400" aria-hidden="true" />
-                                    {feature}
-                                </li>
-                            ))}
-                        </ul>
                     </div>
-                    <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
-                        <div className="rounded-2xl bg-gray-900 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
-                            <div className="mx-auto max-w-xs px-8">
-                                <p className="text-base font-semibold text-gray-400">Dönemlik Ödeme</p>
-                                <p className="mt-6 flex items-baseline justify-center gap-x-2">
-                                    <span className="text-5xl font-bold tracking-tight text-white">3.000 TL</span>
-                                </p>
-                                <p className="mt-2 text-sm text-gray-500">3 Ay için (Aylık 1.000 TL'ye gelir)</p>
-                                <Link
-                                    href="/kayit"
-                                    className="mt-10 block w-full rounded-md bg-[#7C3AED] px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-[#5B21B6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600 transition-all transform hover:scale-105"
-                                >
-                                    Hemen Satın Al
-                                </Link>
-                                <p className="mt-6 text-xs leading-5 text-gray-500">
-                                    Kredi kartı ile güvenli ödeme (Shopier)
-                                </p>
+
+                    {/* Right Column: Premium Pricing Card */}
+                    <div className="relative">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-purple-400 rounded-[26px] blur opacity-20 transition duration-500 group-hover:opacity-40"></div>
+                        <div className="relative p-8 sm:p-10 rounded-[24px] bg-white/5 border border-white/10 backdrop-blur-xl hover:-translate-y-1 transition duration-500 shadow-2xl shadow-purple-900/20">
+
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <h3 className="text-xl font-semibold font-heading text-white">2026 Bahar Dönemi Paketi</h3>
+                                    <span className="mt-2 inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 ring-1 ring-inset ring-purple-500/20">
+                                        Sınırlı Kontenjan
+                                    </span>
+                                </div>
+                                <div className="text-right">
+                                    <p className="text-sm text-gray-400 line-through decoration-white/20">4.500 TL</p>
+                                </div>
                             </div>
+
+                            <p className="mt-6 text-gray-400 text-sm leading-relaxed">
+                                Bu paket ile tüm dönem boyunca ihtiyacınız olan her şeye erişim sağlarsınız. Bahar dönemi kafarahat olsun.
+                            </p>
+
+                            <div className="mt-8 flex items-baseline gap-x-2">
+                                <span className="text-6xl font-bold tracking-tight text-white drop-shadow-[0_0_15px_rgba(168,85,247,0.3)]">2.999</span>
+                                <span className="text-2xl font-bold text-gray-400">TL</span>
+                            </div>
+                            <p className="mt-1 text-sm text-gray-500">Dönemlik Tek Ödeme</p>
+
+                            <Link href="/kayit">
+                                <Button className="mt-8 w-full bg-gradient-to-r from-[#7B2CFF] to-[#9333EA] hover:brightness-110 text-white font-bold py-7 text-lg rounded-xl shadow-[0_0_20px_-5px_rgba(123,44,255,0.5)] hover:shadow-[0_0_30px_-5px_rgba(123,44,255,0.7)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300">
+                                    Hemen Satın Al
+                                </Button>
+                            </Link>
+
+                            <p className="mt-6 text-xs text-center text-gray-500">
+                                300+ öğrenci tarafından kullanılıyor<br />
+                                <span className="opacity-50">Kredi kartı ile güvenli ödeme (Shopier)</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -352,7 +385,7 @@ export function FAQSection() {
         <div className="bg-[#0F0F0F] py-24 sm:py-32">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-4xl divide-y divide-white/10">
-                    <h2 className="text-2xl font-bold leading-10 tracking-tight text-white text-center mb-10">Sıkça Sorulan Sorular</h2>
+                    <h2 className="text-2xl font-bold font-heading leading-10 tracking-tight text-white text-center mb-10">Sıkça Sorulan Sorular</h2>
                     <dl className="mt-10 space-y-6 divide-y divide-white/10">
                         {faqs.map((faq, index) => (
                             <Disclosure key={index} question={faq.question} answer={faq.answer} />
@@ -402,7 +435,7 @@ export function CTASection() {
             </div>
 
             <div className="mx-auto max-w-2xl text-center">
-                <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                <h2 className="text-3xl font-bold font-heading tracking-tight text-white sm:text-4xl">
                     Kafan Rahat Etsin.
                 </h2>
                 <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-300">
