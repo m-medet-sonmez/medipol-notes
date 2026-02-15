@@ -9,12 +9,12 @@ import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
 
 interface Props {
-    params: { id: string };
+    params: Promise<{ id: string }>;
 }
 
 export default async function AdminTicketDetailPage({ params }: Props) {
     const supabase = await createClient();
-    const { id } = params;
+    const { id } = await params;
 
     const { data: ticket } = await supabase
         .from('support_tickets')
