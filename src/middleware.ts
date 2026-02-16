@@ -52,14 +52,14 @@ export async function middleware(request: NextRequest) {
             .eq('id', user.id)
             .single();
 
-        if (profile?.role !== 'admin') {
+        if (profile?.role !== 'admin' && profile?.role !== 'super_admin') {
             return NextResponse.redirect(new URL('/dashboard', request.url));
         }
     }
 
     // Subscription check for Dashboard
     if (request.nextUrl.pathname.startsWith('/dashboard') && user) {
-        // Skip check for subscription/profile pages to avoid loop if expired
+        // Skip check for subscription/profile pages to avoid loop
         if (
             request.nextUrl.pathname.includes('/dashboard/abonelik') ||
             request.nextUrl.pathname.includes('/dashboard/profil')
@@ -77,16 +77,9 @@ export async function middleware(request: NextRequest) {
         const isExpired = !subscription ||
             new Date(subscription.subscription_end_date) < new Date();
 
-        // if (isExpired && !request.nextUrl.pathname.includes('/checkout')) {
-        //     // Opsiyonel: Abonelik bitince direkt checkout'a atmak yerine bir uyarı sayfası veya dashboard içinde sınırlı mod olabilir.
-        //     // Dokümanda /checkout'a yönlendirilmesi istendiği için:
-        //     // Ancak /dashboard da bir protected route olduğu için loop olmamasına dikkat etmeliyiz.
-        //     // Şimdilik redirect yerine dashboard içinde uyarı göstermek daha güvenli olabilir ama
-        //     // Kurala sadık kalıp checkout yönlendirmesi ekliyorum. 
-        //     // Loop'u engellemek için checkout sayfası protected değil public olmalı veya ayrı tutulmalı.
-        //     // Dokümanda /checkout public altında görünüyor, o yüzden sorun yok.
-        //     return NextResponse.redirect(new URL('/checkout', request.url));
-        // }
+        if (isExpired) {
+            return NextResponse.redirect(new URL('/checkout', request.url));
+        }
     }
 
     return response;

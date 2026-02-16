@@ -3,10 +3,13 @@
 import { DataTable } from '@/components/admin/DataTable';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { MessageSquare } from 'lucide-react';
+import { MessageSquare, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
+import { useState } from 'react';
+import { createClient } from '@/lib/supabase/client';
+import { toast } from 'sonner';
 import {
     Dialog,
     DialogContent,
@@ -14,12 +17,44 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface QuestionsTableProps {
     tickets: any[];
 }
 
-export function QuestionsTable({ tickets }: QuestionsTableProps) {
+export function QuestionsTable({ tickets: initialTickets }: QuestionsTableProps) {
+    const [tickets, setTickets] = useState(initialTickets);
+    const [deletingId, setDeletingId] = useState<string | null>(null);
+    const supabase = createClient();
+
+    const handleDelete = async (id: string) => {
+        setDeletingId(id);
+        const { error } = await supabase
+            .from('support_tickets')
+            .delete()
+            .eq('id', id);
+
+        if (error) {
+            toast.error('Soru silinirken bir hata oluştu.');
+            console.error('Delete error:', error);
+        } else {
+            setTickets(prev => prev.filter(t => t.id !== id));
+            toast.success('Soru başarıyla silindi.');
+        }
+        setDeletingId(null);
+    };
+
     const columns = [
         {
             header: 'Öğrenci',
@@ -101,12 +136,43 @@ export function QuestionsTable({ tickets }: QuestionsTableProps) {
         {
             header: 'İşlemler',
             cell: (item: any) => (
-                <Button variant="ghost" size="sm" asChild>
-                    <Link href={`/admin/sorular/${item.id}`}>
-                        <MessageSquare className="mr-2 h-4 w-4" />
-                        Yanıtla
-                    </Link>
-                </Button>
+                <div className="flex items-center gap-1">
+                    <Button variant="ghost" size="sm" asChild>
+                        <Link href={`/admin/sorular/${item.id}`}>
+                            <MessageSquare className="mr-2 h-4 w-4" />
+                            Yanıtla
+                        </Link>
+                    </Button>
+                    <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className="text-red-500 hover:text-red-400 hover:bg-red-500/10"
+                                disabled={deletingId === item.id}
+                            >
+                                <Trash2 className="h-4 w-4" />
+                            </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>Soruyu Sil</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                    &quot;{item.subject}&quot; konulu soruyu silmek istediğinize emin misiniz? Bu işlem geri alınamaz.
+                                </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                                <AlertDialogCancel>İptal</AlertDialogCancel>
+                                <AlertDialogAction
+                                    onClick={() => handleDelete(item.id)}
+                                    className="bg-red-600 hover:bg-red-700 text-white"
+                                >
+                                    Sil
+                                </AlertDialogAction>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
+                </div>
             ),
         },
     ];

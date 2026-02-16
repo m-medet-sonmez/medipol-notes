@@ -6,6 +6,7 @@ import { DataTable } from '@/components/admin/DataTable';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
 import { CourseActions } from '@/components/admin/CourseActions';
+import { BackButton } from '@/components/ui/back-button';
 
 export default async function CoursesPage() {
     const supabase = await createClient();
@@ -42,6 +43,7 @@ export default async function CoursesPage() {
 
     return (
         <div className="space-y-6">
+            <BackButton href="/admin" label="Admin Paneli" />
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-neutral-800 pb-6">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">Ders Yönetimi</h1>

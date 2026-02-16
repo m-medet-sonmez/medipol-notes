@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { FadeIn } from '@/components/ui/fade-in';
 import { ExamManager } from '@/components/admin/ExamManager';
+import { BackButton } from '@/components/ui/back-button';
 
 export default async function AdminExamsPage() {
     const supabase = await createClient();
@@ -16,7 +17,7 @@ export default async function AdminExamsPage() {
         .eq('id', user.id)
         .single();
 
-    if (profile?.role !== 'admin') redirect('/dashboard');
+    if (profile?.role !== 'admin' && profile?.role !== 'super_admin') redirect('/dashboard');
 
     // Fetch Exams
     const { data: exams, error } = await supabase
@@ -30,6 +31,7 @@ export default async function AdminExamsPage() {
 
     return (
         <div className="space-y-8">
+            <BackButton href="/admin" label="Admin Paneli" />
             <FadeIn>
                 <div className="flex items-center justify-between">
                     <div>

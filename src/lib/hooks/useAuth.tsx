@@ -49,13 +49,28 @@ export function useAuth() {
                     .eq('id', authData.user.id)
                     .single();
 
-                if (profile?.role === 'admin') {
+                if (profile?.role === 'admin' || profile?.role === 'super_admin') {
                     router.push('/admin');
                 } else {
-                    router.push('/dashboard');
+                    // Check if student has active subscription
+                    const { data: activeSub } = await supabase
+                        .from('subscriptions')
+                        .select('id, subscription_end_date, is_active')
+                        .eq('user_id', authData.user.id)
+                        .eq('is_active', true)
+                        .single();
+
+                    const hasActiveSub = activeSub &&
+                        new Date(activeSub.subscription_end_date) > new Date();
+
+                    if (hasActiveSub) {
+                        router.push('/dashboard');
+                    } else {
+                        router.push('/checkout');
+                    }
                 }
             } else {
-                router.push('/dashboard');
+                router.push('/checkout');
             }
             router.refresh();
         } catch (error: any) {

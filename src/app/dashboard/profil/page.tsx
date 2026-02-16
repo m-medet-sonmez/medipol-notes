@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { User, Mail, Calendar, CreditCard, Clock } from 'lucide-react';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
+import { BackButton } from '@/components/ui/back-button';
 
 export default async function ProfilePage() {
     const supabase = await createClient();
@@ -34,6 +35,7 @@ export default async function ProfilePage() {
 
     return (
         <div className="space-y-6 max-w-4xl">
+            <BackButton href="/dashboard" label="Ana Sayfa" />
             <h1 className="text-3xl font-bold tracking-tight">Profilim</h1>
 
             <div className="grid gap-6 md:grid-cols-2">

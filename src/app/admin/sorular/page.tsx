@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import { QuestionsTable } from './QuestionsTable';
+import { BackButton } from '@/components/ui/back-button';
 
 export default async function AdminSupportPage() {
     const supabase = await createClient();
@@ -33,6 +34,7 @@ export default async function AdminSupportPage() {
 
     return (
         <div className="space-y-6">
+            <BackButton href="/admin" label="Admin Paneli" />
             <div>
                 <h1 className="text-3xl font-bold tracking-tight">Gelen Sorular</h1>
                 <p className="text-muted-foreground">

@@ -3,6 +3,7 @@ import { ESPRequestForm } from '@/components/esp/ESPRequestForm';
 import { FadeIn } from '@/components/ui/fade-in';
 import { ESP_UNITS } from '@/lib/constants';
 import { Check, Lock } from 'lucide-react';
+import { BackButton } from '@/components/ui/back-button';
 
 export default async function ESPTrustPage() {
     const supabase = await createClient();
@@ -43,6 +44,7 @@ export default async function ESPTrustPage() {
 
     return (
         <div className="space-y-8">
+            <BackButton href="/dashboard" label="Ana Sayfa" />
             <FadeIn>
                 <div className="flex items-center justify-between">
                     <div className="space-y-2">

@@ -7,6 +7,7 @@ import { FileText, Download, ChevronRight, Folder } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { BackButton } from '@/components/ui/back-button';
 
 export default function CoursesPage() {
     const [courses, setCourses] = useState<any[]>([]);
@@ -40,6 +41,7 @@ export default function CoursesPage() {
 
     return (
         <div className="space-y-8">
+            <BackButton href="/dashboard" label="Ana Sayfa" />
             <FadeIn>
                 <div className="flex flex-col gap-2">
                     <h1 className="text-3xl font-bold tracking-tight">Ders Notları</h1>

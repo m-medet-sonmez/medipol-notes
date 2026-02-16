@@ -170,7 +170,7 @@ export function FeaturesSection() {
         },
         {
             title: "Yoklama Takibi",
-            desc: "Bu konu üzerine sizinle özel irtibata geçilecek.",
+            desc: "Ders durumuna göre yoklama konusunda yardımcı olunacak :) Ders yoklama takibinizi yapabileceksiniz.",
             icon: "/feature-attendance.png"
         },
         {
@@ -181,39 +181,47 @@ export function FeaturesSection() {
     ];
 
     return (
-        <div className="bg-black py-24 sm:py-32 overflow-hidden" id="features">
+        <div className="bg-[#0B0B0F] py-24 sm:py-32 overflow-hidden relative" id="features">
+            {/* Ambient Glow */}
+            <div className="absolute left-0 top-1/3 w-[500px] h-[500px] bg-purple-900/15 blur-[120px] rounded-full -z-10" />
+            <div className="absolute right-0 bottom-1/3 w-[400px] h-[400px] bg-purple-900/10 blur-[100px] rounded-full -z-10" />
+
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="mx-auto max-w-2xl text-center mb-24">
+                <div className="mx-auto max-w-2xl text-center mb-20">
                     <h2 className="text-base font-semibold leading-7 text-purple-400">Özellikler</h2>
                     <p className="mt-2 text-3xl font-bold font-heading tracking-tight text-white sm:text-4xl">
                         Neler Sunuyoruz?
                     </p>
+                    <p className="mt-6 text-lg leading-8 text-gray-400">
+                        Her özellik, gerçek öğrenci ihtiyaçlarından doğdu.
+                    </p>
                 </div>
 
-                <div className="flex flex-col gap-y-32">
+                <div className="flex flex-col gap-y-24 md:gap-y-32">
                     {features.map((feature, index) => (
                         <div
                             key={feature.title}
-                            className={`flex flex-col lg:flex-row gap-12 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
+                            className={`flex flex-col md:flex-row gap-8 md:gap-12 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
                         >
                             {/* Image Side */}
-                            <div className="w-full lg:w-1/2 flex justify-center">
-                                <div className="relative w-full max-w-md aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-purple-900/20 to-transparent p-1 ring-1 ring-white/10 shadow-[0_0_50px_-12px_rgba(124,58,237,0.25)] hover:shadow-[0_0_50px_-12px_rgba(124,58,237,0.5)] transition-shadow duration-500">
+                            <div className="w-full md:w-1/2 flex justify-center">
+                                <div className="relative w-full max-w-sm aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-purple-900/20 to-transparent p-1 ring-1 ring-white/10 shadow-[0_0_50px_-12px_rgba(124,58,237,0.25)] hover:shadow-[0_0_50px_-12px_rgba(124,58,237,0.5)] transition-all duration-500 group">
                                     <div className="absolute inset-0 bg-black/40 backdrop-blur-sm -z-10" />
                                     <img
                                         src={feature.icon}
                                         alt={feature.title}
-                                        className="w-full h-full object-contain p-8 hover:scale-105 transition-transform duration-500"
+                                        className="w-full h-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
                                     />
                                 </div>
                             </div>
 
                             {/* Text Side */}
-                            <div className="w-full lg:w-1/2 flex flex-col justify-center text-center lg:text-left">
-                                <h3 className="text-2xl sm:text-3xl font-bold font-heading tracking-tight text-white mb-6">
+                            <div className="w-full md:w-1/2 flex flex-col justify-center text-center md:text-left">
+                                <span className="text-sm font-mono text-purple-500/60 mb-3">0{index + 1}</span>
+                                <h3 className="text-2xl sm:text-3xl font-bold font-heading tracking-tight text-white mb-4">
                                     {feature.title}
                                 </h3>
-                                <p className="text-lg leading-8 text-gray-400">
+                                <p className="text-base sm:text-lg leading-7 sm:leading-8 text-gray-400">
                                     {feature.desc}
                                 </p>
                             </div>
@@ -293,7 +301,7 @@ export function PricingSection() {
                             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">Şeffaf.</span>
                         </h2>
                         <p className="mt-8 text-lg leading-8 text-gray-400 max-w-md opacity-80">
-                            Gizli ücret yok. Bütün dönem tek bir paket. İhtiyacınız olan her şey tek bir ödemeyle sizin.
+                            Bütün dönem tek bir paket. İhtiyacınız olan her şey tek bir ödemeyle sizin.
                         </p>
 
                         <div className="mt-12">
@@ -319,13 +327,11 @@ export function PricingSection() {
                             <div className="flex justify-between items-start">
                                 <div>
                                     <h3 className="text-xl font-semibold font-heading text-white">2026 Bahar Dönemi Paketi</h3>
-                                    <span className="mt-2 inline-flex items-center rounded-full bg-purple-500/10 px-3 py-1 text-xs font-medium text-purple-400 ring-1 ring-inset ring-purple-500/20">
-                                        Sınırlı Kontenjan
+                                    <span className="mt-2 inline-flex items-center rounded-full bg-purple-500/20 px-4 py-1.5 text-sm font-bold text-purple-300 ring-2 ring-inset ring-purple-500/40 animate-pulse">
+                                        🔥 Sınırlı Kontenjan
                                     </span>
                                 </div>
-                                <div className="text-right">
-                                    <p className="text-sm text-gray-400 line-through decoration-white/20">4.500 TL</p>
-                                </div>
+
                             </div>
 
                             <p className="mt-6 text-gray-400 text-sm leading-relaxed">
@@ -344,9 +350,65 @@ export function PricingSection() {
                                 </Button>
                             </Link>
 
-                            <p className="mt-6 text-xs text-center text-gray-500">
-                                300+ öğrenci tarafından kullanılıyor<br />
-                                <span className="opacity-50">Kredi kartı ile güvenli ödeme (Shopier)</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// --- GUARANTEE SECTION ---
+export function GuaranteeSection() {
+    return (
+        <div className="bg-[#0B0B0F] py-24 sm:py-32 relative overflow-hidden" id="guvence">
+            {/* Ambient Glow */}
+            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-900/10 blur-[120px] rounded-full -z-10" />
+
+            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                {/* Section Header */}
+                <div className="mx-auto max-w-2xl text-center mb-16">
+                    <h2 className="text-4xl sm:text-5xl font-bold font-heading tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">Güvenceniz</h2>
+                </div>
+
+                {/* Content: Photo Left, Text Right */}
+                <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center lg:items-start">
+                    {/* Left: Profile Photo */}
+                    <div className="flex-shrink-0">
+                        <div className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-[24px] overflow-hidden ring-1 ring-white/10 shadow-[0_0_50px_-12px_rgba(124,58,237,0.3)] group">
+                            <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-transparent -z-10" />
+                            <img
+                                src="/profil.png"
+                                alt="Muhammed Medet Sönmez"
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Right: Message */}
+                    <div className="flex-1 relative p-8 sm:p-10 rounded-[24px] bg-white/5 border border-white/10 backdrop-blur-xl">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/10 to-transparent rounded-[26px] blur opacity-30 -z-10" />
+                        <div className="text-gray-300 text-[15px] leading-7 space-y-4">
+                            <p className="text-white font-semibold text-lg">Selamünaleyküm,</p>
+                            <p>
+                                Ben <span className="text-purple-400 font-medium">Muhammed Medet Sönmez</span>, YBS 2. sınıf öğrencisiyim. Öncelikle kimsenin böyle bir kolaylığı sunmadığından dolayı bunu kendim yapmak istedim. Her ne kadar dışarıdan bakıldığında etik açıdan sorgulanabilir görünebilse de, burada sesimi çıkarmak zorunda hissettim.
+                            </p>
+                            <p>
+                                Okulumuzda sabah saat 08.00&apos;e konulan derslere yetişmekte zorlanmam, derslere mesleki anlamda umutla gelmeme rağmen anlatım tarzının hâlâ eski yöntemlerle sürdürülmesi ve bu zaman dilimini daha verimli değerlendirebileceğimi düşünmem beni böyle bir adım atmaya yöneltti. Rakiplerimiz bizden daha donanımlı şekilde ilerlerken, elimizdeki en değerli sermaye olan zamanı verimsiz şekilde harcamak istemiyorum.
+                            </p>
+                            <p>
+                                Bu nedenle ekibimle birlikte, bahar dönemi boyunca sizlere zaman kazandıracak, eğitim sürecimizi daha otonom hâle getirecek bir sistem kurduk. Ödeme yöntemi olarak IBAN kullanılacaktır çünkü bu platformu sürdürülebilir iş modeline çevirme gibi bir niyetimiz yok; amacımız yalnızca bu dönem dersleri daha verimli ve daha az yorucu hâle getirerek kendi ilgi alanlarımıza daha fazla yönelmek.
+                            </p>
+                            <p>
+                                İlk haftadan sonra iade talebiniz olursa ya da ödeme konusunda herhangi bir sıkıntı yaşarsanız, benimle doğrudan iletişime geçebilirsiniz. WhatsApp&apos;tan direkt bana ulaşabilirsiniz. Ayrıca okula geldiğiniz bir gün (ben de oradaysam 😊) yüz yüze de görüşebiliriz. Bu konuda içiniz rahat olsun.
+                            </p>
+                            <p>
+                                İnşallah bir &quot;tosuncuk&quot; 😅 olayı yaşanmayacak; yerim sınıfın içi ve ben de sizden biriyim.
+                            </p>
+                            <p className="text-white font-medium pt-2">
+                                Sevgilerim ve saygılarımla,<br />
+                                <span className="text-purple-400">Namıdeğer Elazığlı</span>
                             </p>
                         </div>
                     </div>
@@ -377,7 +439,15 @@ export function FAQSection() {
         },
         {
             question: "İade imkanı var mı?",
-            answer: "Ödeme sonrası ilk hafta içinde memnun kalmazsanız koşulsuz iade hakkınız vardır."
+            answer: "Ödeme sonrası ilk hafta içinde memnun kalmazsanız koşulsuz iade hakkınız vardır. İade için WhatsApp'tan irtibata geçebilirsiniz."
+        },
+        {
+            question: "Bu yaptığınız yasal mı?",
+            answer: "Her dönemin bir Galileosu olur."
+        },
+        {
+            question: "Siz kimsiniz?",
+            answer: "Biz sizinle aynı sınıfta bulunan öğrencileriz."
         }
     ];
 
@@ -429,27 +499,56 @@ function Disclosure({ question, answer }: { question: string, answer: string }) 
 // --- CTA SECTION ---
 export function CTASection() {
     return (
-        <div className="relative isolate mt-32 px-6 py-32 sm:mt-56 sm:py-40 lg:px-8">
-            <div className="absolute inset-x-0 top-1/2 -z-10 -translate-y-1/2 transform-gpu overflow-hidden opacity-30 blur-3xl">
-                <div className="ml-[max(50%,38rem)] aspect-[1313/771] w-[82.0625rem] bg-gradient-to-tr from-[#7C3AED] to-[#5B21B6]" style={{ clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)' }} />
+        <div className="relative isolate mt-32 px-6 py-32 sm:mt-56 sm:py-40 lg:px-8 overflow-hidden">
+            {/* Background Orbs */}
+            <div className="absolute inset-0 -z-10">
+                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[128px]" />
+                <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/15 rounded-full blur-[100px]" />
             </div>
 
-            <div className="mx-auto max-w-2xl text-center">
-                <h2 className="text-3xl font-bold font-heading tracking-tight text-white sm:text-4xl">
-                    Kafan Rahat Etsin.
-                </h2>
-                <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-300">
-                    2026 Bahar Döneminde diploma bürokratisinden kurtulun. Zamanınızı asıl öğrenmek istediğiniz konulara ayırın.
-                </p>
-                <div className="mt-10 flex items-center justify-center gap-x-6">
-                    <Link href="/kayit">
-                        <Button size="lg" className="bg-white text-purple-900 hover:bg-gray-100 font-bold px-8 py-6 text-lg">
-                            Şimdi Başla - 3.000 TL
-                        </Button>
-                    </Link>
-                </div>
-                <div className="mt-10 text-sm text-gray-500">
-                    <p>🎓 YBS 2. Sınıf | 2026 Bahar Dönemi</p>
+            <div className="mx-auto max-w-4xl">
+                {/* Main CTA Card */}
+                <div className="relative">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-purple-500 to-purple-700 rounded-[28px] blur opacity-25" />
+                    <div className="relative p-10 sm:p-16 rounded-[24px] bg-[#0F0F13] border border-white/10 text-center">
+
+                        <h2 className="text-4xl sm:text-5xl font-bold font-heading tracking-tight text-white leading-tight">
+                            Kafan <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">Rahat</span> Etsin.
+                        </h2>
+
+                        <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-400">
+                            2026 Bahar Döneminde derslerinizi otonomlaştırıp zamana kazanın. Elimizden geldiğince size yardımcı olunacak, yapıcı geri bildirimlerinizi de bekleriz. Şimdi aramıza katılın!
+                        </p>
+
+
+
+                        {/* Price + Button */}
+                        <div className="mt-10 flex flex-col items-center gap-4">
+                            <div className="flex items-baseline gap-2">
+                                <span className="text-5xl font-bold text-white drop-shadow-[0_0_15px_rgba(168,85,247,0.3)]">2.999</span>
+                                <span className="text-xl font-bold text-gray-400">TL</span>
+                                <span className="text-sm text-gray-500 ml-2">/ dönem</span>
+                            </div>
+                            <Link href="/kayit">
+                                <Button size="lg" className="bg-gradient-to-r from-[#7B2CFF] to-[#9333EA] hover:brightness-110 text-white font-bold px-12 py-7 text-lg rounded-xl shadow-[0_0_30px_-5px_rgba(123,44,255,0.5)] hover:shadow-[0_0_40px_-5px_rgba(123,44,255,0.7)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300">
+                                    Hemen Başla 🚀
+                                </Button>
+                            </Link>
+                        </div>
+
+                        {/* Trust badges */}
+                        <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500">
+                            <span className="flex items-center gap-1.5">
+                                <CheckCircle2 className="w-4 h-4 text-green-500" /> İlk hafta iade garantisi
+                            </span>
+                            <span className="flex items-center gap-1.5">
+                                <CheckCircle2 className="w-4 h-4 text-green-500" /> Anında erişim
+                            </span>
+                            <span className="flex items-center gap-1.5">
+                                🎓 YBS 2. Sınıf · 2026 Bahar
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

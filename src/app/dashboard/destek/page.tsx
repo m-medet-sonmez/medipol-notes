@@ -3,6 +3,7 @@ import { TicketList } from '@/components/support/TicketList';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
+import { BackButton } from '@/components/ui/back-button';
 
 export default async function SupportPage() {
     const supabase = await createClient();
@@ -18,6 +19,7 @@ export default async function SupportPage() {
 
     return (
         <div className="space-y-6">
+            <BackButton href="/dashboard" label="Ana Sayfa" />
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">Destek Merkezi</h1>

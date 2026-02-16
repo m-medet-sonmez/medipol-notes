@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { FadeIn } from '@/components/ui/fade-in';
 import { ExamSchedule } from '@/components/dashboard/ExamSchedule';
+import { BackButton } from '@/components/ui/back-button';
 
 export default async function StudentExamsPage() {
     const supabase = await createClient();
@@ -33,6 +34,7 @@ export default async function StudentExamsPage() {
 
     return (
         <div className="space-y-8">
+            <BackButton href="/dashboard" label="Ana Sayfa" />
             <FadeIn>
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight text-white mb-2">Sınav Takvimi</h1>

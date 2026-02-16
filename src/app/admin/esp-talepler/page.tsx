@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import { ESPRequestTable } from '@/components/admin/ESPRequestTable';
+import { BackButton } from '@/components/ui/back-button';
 
 export default async function ESPRequestsPage() {
     const supabase = await createClient();
@@ -18,6 +19,7 @@ export default async function ESPRequestsPage() {
 
     return (
         <div className="space-y-6">
+            <BackButton href="/admin" label="Admin Paneli" />
             <div>
                 <h1 className="text-3xl font-bold tracking-tight">ESP Trust Talepleri</h1>
                 <p className="text-muted-foreground">

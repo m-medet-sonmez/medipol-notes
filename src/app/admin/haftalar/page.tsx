@@ -5,6 +5,7 @@ import { Plus, Pencil, Trash } from 'lucide-react';
 import { DataTable } from '@/components/admin/DataTable';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
+import { BackButton } from '@/components/ui/back-button';
 
 export default async function WeeksPage() {
     const supabase = await createClient();
@@ -68,6 +69,7 @@ export default async function WeeksPage() {
 
     return (
         <div className="space-y-6">
+            <BackButton href="/admin" label="Admin Paneli" />
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">Hafta Yönetimi</h1>
