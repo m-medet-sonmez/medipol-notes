@@ -20,7 +20,7 @@ export async function sendEmail({ to, subject, html }: SendEmailParams) {
         }
 
         const data = await resend.emails.send({
-            from: 'Medipol Notları <onboarding@resend.dev>', // Default Resend testing domain
+            from: 'KafaRahat Destek <noreply@kafarahat.xyz>',
             to: [recipient],
             subject: subject,
             html: html,

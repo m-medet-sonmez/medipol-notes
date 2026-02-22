@@ -429,10 +429,7 @@ export function FAQSection() {
             question: "Notlar kim tarafından tutuluyor?",
             answer: "Derslerde fiziki olarak bulunan, başarılı ve deneyimli ekip arkadaşlarımız tarafından sınav odaklı olarak tutulmaktadır."
         },
-        {
-            question: "ESP Trust güvenli mi?",
-            answer: "Evet. Sistemimiz sadece ödev takibi için veri kullanır. Verileriniz şifreli olarak saklanır ve üçüncü taraflarla paylaşılmaz."
-        },
+
         {
             question: "Mobil uygulamanız var mı?",
             answer: "Şu an için responsive (mobil uyumlu) web sitemiz üzerinden hizmet veriyoruz. Telefondan rahatlıkla kullanabilirsiniz."

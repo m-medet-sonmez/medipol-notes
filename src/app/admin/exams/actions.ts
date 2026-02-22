@@ -26,7 +26,7 @@ export async function upsertExamSchedule(data: Partial<ExamSchedule>) {
         .eq('id', user.id)
         .single();
 
-    if (profile?.role !== 'admin') return { error: 'Unauthorized' };
+    if (profile?.role !== 'admin' && profile?.role !== 'super_admin') return { error: 'Unauthorized' };
 
     if (!data.course_name) return { error: 'Ders adı gereklidir.' };
     if (!data.exam_date) return { error: 'Sınav tarihi gereklidir.' };
@@ -73,7 +73,7 @@ export async function deleteExamSchedule(examId: string) {
         .eq('id', user.id)
         .single();
 
-    if (profile?.role !== 'admin') return { error: 'Unauthorized' };
+    if (profile?.role !== 'admin' && profile?.role !== 'super_admin') return { error: 'Unauthorized' };
 
     const { error } = await supabase
         .from('exam_schedules')

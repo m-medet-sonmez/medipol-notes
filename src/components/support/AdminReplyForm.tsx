@@ -71,14 +71,33 @@ export function AdminReplyForm({ ticketId, currentStatus, studentEmail, ticketSu
 
             if (error) throw error;
 
-            toast.success('Yanıt kaydedildi');
-
-            // Handle Email redirection
+            // Send email via Resend API
             if (sendEmail && studentEmail) {
-                const subject = `YNT: ${ticketSubject || 'Destek Talebi'}`;
-                const body = `Merhaba,\n\nTalebine istinaden yanıtımız ektedir:\n\n${values.reply}\n\nİyi çalışmalar.`;
-                const mailtoLink = `mailto:${studentEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                window.open(mailtoLink, '_blank');
+                try {
+                    const emailRes = await fetch('/api/send-reply', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            to: studentEmail,
+                            subject: ticketSubject || 'Destek Talebi',
+                            reply: values.reply,
+                            studentName: '',
+                        }),
+                    });
+
+                    const emailData = await emailRes.json();
+                    if (emailData.success) {
+                        toast.success('Yanıt kaydedildi ve e-posta gönderildi ✉️');
+                    } else {
+                        toast.success('Yanıt kaydedildi (e-posta gönderilemedi)');
+                        console.error('Email error:', emailData.error);
+                    }
+                } catch (emailErr) {
+                    toast.success('Yanıt kaydedildi (e-posta gönderilemedi)');
+                    console.error('Email fetch error:', emailErr);
+                }
+            } else {
+                toast.success('Yanıt kaydedildi');
             }
 
             router.push('/admin/sorular');

@@ -5,8 +5,20 @@ import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
 import { format } from 'date-fns';
 import { tr } from 'date-fns/locale';
-import { CheckCircle2, XCircle, Clock, ArrowLeft, User, Mail, Phone, Users, Calendar, AlertTriangle } from 'lucide-react';
+import { CheckCircle2, XCircle, Clock, ArrowLeft, User, Mail, Phone, Users, Calendar, AlertTriangle, Trash2 } from 'lucide-react';
 import Link from 'next/link';
+import { toast } from 'sonner';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 
 interface ProfileInfo {
     email: string;
@@ -182,6 +194,29 @@ export default function PaymentApprovalsPage() {
         }
     };
 
+    const handleDelete = async (id: string) => {
+        setProcessingId(id);
+        try {
+            const { error } = await supabase
+                .from('payment_requests')
+                .delete()
+                .eq('id', id);
+
+            if (error) {
+                toast.error('Talep silinirken bir hata oluştu.');
+                console.error('Delete error:', error);
+            } else {
+                setRequests(prev => prev.filter(r => r.id !== id));
+                toast.success('Ödeme talebi silindi.');
+            }
+        } catch (err) {
+            console.error('Delete error:', err);
+            toast.error('Beklenmeyen bir hata oluştu.');
+        } finally {
+            setProcessingId(null);
+        }
+    };
+
     const pendingRequests = requests.filter(r => r.status === 'pending');
     const processedRequests = requests.filter(r => r.status !== 'pending');
 
@@ -268,6 +303,34 @@ export default function PaymentApprovalsPage() {
                                             <XCircle className="w-4 h-4" />
                                             Reddet
                                         </button>
+                                        <AlertDialog>
+                                            <AlertDialogTrigger asChild>
+                                                <button
+                                                    disabled={processingId === req.id}
+                                                    className="p-2.5 hover:bg-neutral-800 text-neutral-500 hover:text-red-400 rounded-xl transition-colors"
+                                                    title="Sil"
+                                                >
+                                                    <Trash2 className="w-4 h-4" />
+                                                </button>
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>Talebi Sil</AlertDialogTitle>
+                                                    <AlertDialogDescription>
+                                                        {req.profile?.full_name || req.full_name} adlı kişinin ödeme talebini silmek istediğinize emin misiniz? Bu işlem geri alınamaz.
+                                                    </AlertDialogDescription>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>İptal</AlertDialogCancel>
+                                                    <AlertDialogAction
+                                                        onClick={() => handleDelete(req.id)}
+                                                        className="bg-red-600 hover:bg-red-700 text-white"
+                                                    >
+                                                        Sil
+                                                    </AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
                                     </div>
                                 </div>
 
@@ -339,6 +402,33 @@ export default function PaymentApprovalsPage() {
                                                 {format(new Date(req.reviewed_at), 'd MMM HH:mm', { locale: tr })}
                                             </span>
                                         )}
+                                        <AlertDialog>
+                                            <AlertDialogTrigger asChild>
+                                                <button
+                                                    className="p-2 hover:bg-neutral-800 text-neutral-600 hover:text-red-400 rounded-lg transition-colors"
+                                                    title="Sil"
+                                                >
+                                                    <Trash2 className="w-4 h-4" />
+                                                </button>
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>Talebi Sil</AlertDialogTitle>
+                                                    <AlertDialogDescription>
+                                                        {req.profile?.full_name || req.full_name} adlı kişinin ödeme talebini silmek istediğinize emin misiniz? Bu işlem geri alınamaz.
+                                                    </AlertDialogDescription>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>İptal</AlertDialogCancel>
+                                                    <AlertDialogAction
+                                                        onClick={() => handleDelete(req.id)}
+                                                        className="bg-red-600 hover:bg-red-700 text-white"
+                                                    >
+                                                        Sil
+                                                    </AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
                                     </div>
                                 </div>
                                 <div className="flex gap-6 text-xs text-neutral-500 pl-11">
