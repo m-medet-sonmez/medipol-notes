@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { sendEmail } from '@/lib/mail';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 
 export async function POST(req: Request) {
     try {
@@ -11,8 +12,7 @@ export async function POST(req: Request) {
         }
 
         // Admin ve Super Admin emaillerini bulmak için bypass yetkili client kullanıyoruz
-        const { createClient } = require('@supabase/supabase-js');
-        const adminSupabase = createClient(
+        const adminSupabase = createSupabaseClient(
             process.env.NEXT_PUBLIC_SUPABASE_URL!,
             process.env.SUPABASE_SERVICE_ROLE_KEY!
         );
@@ -24,7 +24,7 @@ export async function POST(req: Request) {
 
         const adminEmails = (admins || [])
             .map((admin: any) => admin.email)
-            .filter(Boolean);
+            .filter(Boolean) as string[];
 
         if (adminEmails.length === 0) {
             return NextResponse.json({ message: 'Hiç admin bulunamadı.' }, { status: 200 });
@@ -64,26 +64,17 @@ export async function POST(req: Request) {
             </div>
         `;
 
-        // Send to all admins in chunks
         const CHUNK_SIZE = 50;
         let successCount = 0;
-        let failCount = 0;
 
         for (let i = 0; i < adminEmails.length; i += CHUNK_SIZE) {
-            const chunk = adminEmails.slice(i, i + CHUNK_SIZE) as string[];
-
-            const promises = chunk.map(email => sendEmail({
+            const chunk = adminEmails.slice(i, i + CHUNK_SIZE);
+            const results = await Promise.all(chunk.map(email => sendEmail({
                 to: email,
                 subject: `🔔 Yeni Soru Geldi: ${subject}`,
                 html: emailHtml
-            }));
-
-            const results = await Promise.all(promises);
-
-            results.forEach(res => {
-                if (res.success) successCount++;
-                else failCount++;
-            });
+            })));
+            results.forEach(res => { if (res.success) successCount++; });
         }
 
         return NextResponse.json({ success: true, message: 'Yöneticilere e-posta gönderildi.' }, { status: 200 });

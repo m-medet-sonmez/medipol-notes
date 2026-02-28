@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { sendEmail } from '@/lib/mail';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 
 export async function POST(req: Request) {
     try {
@@ -39,7 +40,6 @@ export async function POST(req: Request) {
         }
 
         // E-postaları toplarken listeleme yetkisi için RLS bypass eden admin yetkili client kullanalım
-        const { createClient: createSupabaseClient } = require('@supabase/supabase-js');
         const adminSupabase = createSupabaseClient(
             process.env.NEXT_PUBLIC_SUPABASE_URL!,
             process.env.SUPABASE_SERVICE_ROLE_KEY!

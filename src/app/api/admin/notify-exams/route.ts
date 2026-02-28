@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
 import { sendEmail } from '@/lib/mail';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 
 export async function POST(req: Request) {
     try {
-        const { createClient } = require('@supabase/supabase-js');
-        const adminSupabase = createClient(
+        const adminSupabase = createSupabaseClient(
             process.env.NEXT_PUBLIC_SUPABASE_URL!,
             process.env.SUPABASE_SERVICE_ROLE_KEY!
         );
@@ -40,28 +40,27 @@ export async function POST(req: Request) {
             `)
             .eq('is_active', true);
 
-        // 2.a Bütün Adminleri ve Super Adminleri de ekleyelim (haberdar olmaları için)
+        // 2.a Bütün Adminleri ve Super Adminleri de ekleyelim
         const { data: admins } = await adminSupabase
             .from('profiles')
             .select('email')
             .in('role', ['admin', 'super_admin']);
 
-        // Emailleri toplayalım
         const studentEmails = (activeSubscriptions || [])
             .map((sub: any) => sub.profiles?.email)
-            .filter((email: string | undefined) => email && typeof email === 'string');
+            .filter((email: any) => email && typeof email === 'string');
 
         const adminEmails = (admins || [])
             .map((admin: any) => admin.email)
-            .filter((email: string | undefined) => email && typeof email === 'string');
+            .filter((email: any) => email && typeof email === 'string');
 
         const allEmails = [...studentEmails, ...adminEmails];
-        // Butona basan kişinin epostasını da eksiksiz olarak kesinleştirelim
+        // Butona basan kişiyi de ekle
         if (user.email) {
             allEmails.push(user.email);
         }
 
-        const uniqueEmails = Array.from(new Set(allEmails));
+        const uniqueEmails = Array.from(new Set(allEmails)) as string[];
 
         if (uniqueEmails.length === 0) {
             return NextResponse.json({ message: 'Mail gönderilecek kimse bulunamadı.' }, { status: 200 });
@@ -93,23 +92,11 @@ export async function POST(req: Request) {
 
         const CHUNK_SIZE = 50;
         let successCount = 0;
-        let failCount = 0;
 
         for (let i = 0; i < uniqueEmails.length; i += CHUNK_SIZE) {
-            const chunk = uniqueEmails.slice(i, i + CHUNK_SIZE) as string[];
-
-            const promises = chunk.map(email => sendEmail({
-                to: email,
-                subject: emailSubject,
-                html: emailHtml
-            }));
-
-            const results = await Promise.all(promises);
-
-            results.forEach(res => {
-                if (res.success) successCount++;
-                else failCount++;
-            });
+            const chunk = uniqueEmails.slice(i, i + CHUNK_SIZE);
+            const results = await Promise.all(chunk.map(email => sendEmail({ to: email, subject: emailSubject, html: emailHtml })));
+            results.forEach(res => { if (res.success) successCount++; });
         }
 
         return NextResponse.json({
