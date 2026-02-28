@@ -1,0 +1,17 @@
+export const ESP_UNITS = [
+    { id: 14, title: 'Networks' },
+    { id: 15, title: 'ISP & The Internet' },
+    { id: 16, title: 'The Internet' },
+    { id: 17, title: 'Education and Research' },
+    { id: 18, title: 'Assistive Touch' },
+    { id: 19, title: 'Robots' },
+    { id: 20, title: 'Novel Technologies' },
+    { id: 21, title: 'Artificial Intelligence' },
+    { id: 22, title: 'Cyber Security' },
+    { id: 23, title: 'Operating Systems' },
+    { id: 24, title: 'HCI' },
+    { id: 25, title: 'Capturing Images' },
+    { id: 26, title: 'GPS Systems' },
+    { id: 27, title: 'Social Media Marketing' },
+    { id: 28, title: 'Entertainment Industries' },
+];
