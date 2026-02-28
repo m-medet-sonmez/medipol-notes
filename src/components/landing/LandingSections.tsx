@@ -444,7 +444,7 @@ export function FAQSection() {
         },
         {
             question: "Siz kimsiniz?",
-            answer: "Biz sizinle aynı sınıfta bulunan öğrencileriz."
+            answer: "Yerinde ve zamanında konuşanlar (sınıf arkadaşlarınız)."
         },
         {
             question: "Sizinle nasıl iletişime geçebilirim?",
